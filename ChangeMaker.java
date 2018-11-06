@@ -25,7 +25,12 @@ public class ChangeMaker {
         }
         else {
             int[] change_DP_result = change_DP(n, d);
-            print_change_DP_results(n, d, change_DP_result);
+            System.out.println("DP algorithm results");
+            print_change_results(n, d, change_DP_result);
+
+            int[] change_greedy_result = change_greedy(n, d);
+            System.out.println("Greedy algorithm results");
+            print_change_results(n, d, change_greedy_result);
         }
 
     }
@@ -36,42 +41,38 @@ public class ChangeMaker {
         return new int[1];
     }
     
-    // PRINT FORMAT
-    // DP algorithm results
-    // Amount:87
-    // Optimal distribution:3*25 c+1*10 c+2*1c
-    // Optimal coin count:6
-    private static void print_change_DP_results(int n, int[] d, int[] results) {
-        System.out.println("Amount: " + n);
-        System.out.print("Optimal distribution: ");
-        // LOOP OVER DENOMINATIONS AND COUNTS, PRINT EACH
-        for (int i=0; i<d.length; i++) {
-            System.out.printf("%d*%dc ", results[i], d[i]);
-        }
-        System.out.print("\n");
-        System.out.println("Optimal coin count: " + get_coin_count(results));
-    }
-
-    // IS THIS OKAY TO BE PUBLIC ???? - FOR TESTING
-    public static int get_coin_count(int[] results) {
-        int total = 0;
-        for (int i=0; i<results.length; i++) {
-            total += results[i];
-        }
-        return total;
-    }
-
     // GREEDY
 
     public static int[] change_greedy(int n, int[] d) {
         return new int[1];
     }
 
-    private static void print_change_greedy_results(int n, int[] d, int[] results) {
+    // HELPERS
 
+    // IS THIS OKAY TO BE PUBLIC ???? - FOR TESTING
+    public static int get_coin_count(int[] results) {
+        int total = 0;
+        for (int i = 0; i < results.length; i++) {
+            total += results[i];
+        }
+        return total;
     }
 
-    // HELPERS
+    // PRINT FORMAT
+    // DP algorithm results
+    // Amount:87
+    // Optimal distribution:3*25 c+1*10 c+2*1c
+    // Optimal coin count:6
+    private static void print_change_results(int n, int[] d, int[] results) {
+        System.out.println("Amount: " + n);
+        System.out.print("Optimal distribution: ");
+        // LOOP OVER DENOMINATIONS AND COUNTS, PRINT EACH
+        for (int i = 0; i < d.length; i++) {
+            System.out.printf("%d*%dc ", results[i], d[i]);
+        }
+        System.out.print("\n");
+        System.out.println("Optimal coin count: " + get_coin_count(results));
+    }
 
     private static int[] convertIntegers(ArrayList<Integer> integers) {
         int[] ret = new int[integers.size()];
