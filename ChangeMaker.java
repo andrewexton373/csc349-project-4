@@ -52,7 +52,8 @@ public class ChangeMaker {
         System.out.println("Optimal coin count: " + get_coin_count(results));
     }
 
-    private static int get_coin_count(int[] results) {
+    // IS THIS OKAY TO BE PUBLIC ???? - FOR TESTING
+    public static int get_coin_count(int[] results) {
         int total = 0;
         for (int i=0; i<results.length; i++) {
             total += results[i];
