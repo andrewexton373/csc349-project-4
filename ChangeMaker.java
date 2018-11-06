@@ -11,7 +11,7 @@ public class ChangeMaker {
         int k = K.intValue();
 
         ArrayList<Integer> Denominations = new ArrayList<Integer>();
-        while (scan.hasNextInt()) { // DENOMINATION VALUES
+        for (i=0; i<k; i++) {
             Denominations.add(scan.nextInt());
         }
         int[] d = convertIntegers(Denominations);
