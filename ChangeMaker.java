@@ -24,9 +24,9 @@ public class ChangeMaker {
             System.exit(0);
         }
         else {
-            // int[] change_DP_result = change_DP(n, d);
-            // System.out.println("DP algorithm results");
-            // print_change_results(n, d, change_DP_result);
+            int[] change_DP_result = change_DP(n, d);
+            System.out.println("DP algorithm results");
+            print_change_results(n, d, change_DP_result);
 
             int[] change_greedy_result = change_greedy(n, d);
             System.out.println("Greedy algorithm results");
@@ -75,12 +75,26 @@ public class ChangeMaker {
     // GREEDY
 
     public static int[] change_greedy(int n, int[] d) {
+        // int[] change = new int[d.length];
+        // int remaining = n, i = 0;
+        // while (remaining > 0) {
+        //     while (d[i] <= remaining) {
+        //         change[i]++;
+        //         remaining -= d[i];
+        //     } 
+        //     i++;
+            
+        // }
+        // return change;
+
         int[] change = new int[d.length];
         int remaining = n, i = 0;
+        int count;
         while (remaining > 0) {
-            if (d[i] <= remaining) {
-                change[i]++;
-                remaining -= d[i];
+            count = (int) Math.floor(remaining/d[i]);
+            if (count > 0) {
+                change[i] = count;
+                remaining -= count * d[i];
             } else {
                 i++;
             }
