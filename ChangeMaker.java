@@ -11,7 +11,7 @@ public class ChangeMaker {
         int k = K.intValue();
 
         ArrayList<Integer> Denominations = new ArrayList<Integer>();
-        for (i=0; i<k; i++) {
+        for (int i=0; i<k; i++) {
             Denominations.add(scan.nextInt());
         }
         int[] d = convertIntegers(Denominations);
@@ -24,9 +24,9 @@ public class ChangeMaker {
             System.exit(0);
         }
         else {
-            int[] change_DP_result = change_DP(n, d);
-            System.out.println("DP algorithm results");
-            print_change_results(n, d, change_DP_result);
+            // int[] change_DP_result = change_DP(n, d);
+            // System.out.println("DP algorithm results");
+            // print_change_results(n, d, change_DP_result);
 
             int[] change_greedy_result = change_greedy(n, d);
             System.out.println("Greedy algorithm results");
@@ -75,7 +75,17 @@ public class ChangeMaker {
     // GREEDY
 
     public static int[] change_greedy(int n, int[] d) {
-        return new int[1];
+        int[] change = new int[d.length];
+        int remaining = n, i = 0;
+        while (remaining > 0) {
+            if (d[i] <= remaining) {
+                change[i]++;
+                remaining -= d[i];
+            } else {
+                i++;
+            }
+        }
+        return change;
     }
 
     // HELPERS
@@ -99,7 +109,8 @@ public class ChangeMaker {
         System.out.print("Optimal distribution: ");
         // LOOP OVER DENOMINATIONS AND COUNTS, PRINT EACH
         for (int i = 0; i < d.length; i++) {
-            System.out.printf("%d*%dc ", results[i], d[i]);
+            if (results[i] > 0)
+                System.out.printf("%d*%dc ", results[i], d[i]);
         }
         System.out.print("\n");
         System.out.println("Optimal coin count: " + get_coin_count(results));
