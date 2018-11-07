@@ -38,6 +38,37 @@ public class ChangeMaker {
     // DYNAMIC PROGRAMING
 
     public static int[] change_DP(int n, int[] d) {
+        int[] C = new int[n]; // stores min number of coins to make change for n
+        Arrays.fill(C, Integer.MAX_VALUE);
+        C[0] = 0;
+
+        int[] A = new int[n]; // saves index of denomination used when computing C[j]
+        Arrays.fill(A, -1);
+
+        int[] B = new int[d.length]; // stores count of coins used for index of denomination
+        Arrays.fill(B, 0);
+
+        // more change to be given
+        while (j>0) {
+
+            int minimum = Integer.MAX_VALUE;
+            int denominationUsed = -1;
+
+            // for each denomination
+            for (int i=0; i < d.length; i++) {
+                if (j >= d[i]) {
+                    int current = 1 + C[j-d[i]];
+                    if (current < minimum) {
+                        minimum = current;
+                        denominationUsed = i;
+                    }
+                } else {
+                    continue;
+                }
+            }
+            
+        }
+
         return new int[1];
     }
     
