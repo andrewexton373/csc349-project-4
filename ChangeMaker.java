@@ -85,7 +85,31 @@ public class ChangeMaker {
     // GREEDY
 
     public static int[] change_greedy(int n, int[] d) {
-        return new int[1];
+        // int[] change = new int[d.length];
+        // int remaining = n, i = 0;
+        // while (remaining > 0) {
+        //     while (d[i] <= remaining) {
+        //         change[i]++;
+        //         remaining -= d[i];
+        //     } 
+        //     i++;
+            
+        // }
+        // return change;
+
+        int[] change = new int[d.length];
+        int remaining = n, i = 0;
+        int count;
+        while (remaining > 0) {
+            count = (int) Math.floor(remaining/d[i]);
+            if (count > 0) {
+                change[i] = count;
+                remaining -= count * d[i];
+            } else {
+                i++;
+            }
+        }
+        return change;
     }
 
     // HELPERS
@@ -109,7 +133,8 @@ public class ChangeMaker {
         System.out.print("Optimal distribution: ");
         // LOOP OVER DENOMINATIONS AND COUNTS, PRINT EACH
         for (int i = 0; i < d.length; i++) {
-            System.out.printf("%d*%dc ", results[i], d[i]);
+            if (results[i] > 0)
+                System.out.printf("%d*%dc ", results[i], d[i]);
         }
         System.out.print("\n");
         System.out.println("Optimal coin count: " + results[n]);
