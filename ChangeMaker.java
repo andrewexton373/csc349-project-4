@@ -38,8 +38,9 @@ public class ChangeMaker {
  
     // DYNAMIC PROGRAMING
 
+    static int[] C;
     public static int[] change_DP(int n, int[] d) {
-        int[] C = new int[n + 1]; // stores min number of coins to make change for n
+        C = new int[n + 1]; // stores min number of coins to make change for n
         Arrays.fill(C, Integer.MAX_VALUE);
         C[0] = 0;
 
@@ -54,7 +55,7 @@ public class ChangeMaker {
         // more change to be given
         while (j<=n) {
 
-            System.out.println("Amount: " + j);
+            // System.out.println("Amount: " + j);
             int minimum = Integer.MAX_VALUE;
             int denominationUsed = -1;
 
@@ -73,41 +74,33 @@ public class ChangeMaker {
                 }
             }
 
-            System.out.println(d[denominationUsed]);
+            // System.out.println(d[denominationUsed]);
             A[j] = denominationUsed;
             C[j] = minimum + 1;
             j++;
         }
 
-        return C;
+        while (n > 0) {
+            int dIndex = A[n];
+            n = n - d[dIndex];
+            B[dIndex]++;
+        }
+
+        return B;
     }
     
     // GREEDY
 
     public static int[] change_greedy(int n, int[] d) {
-        // int[] change = new int[d.length];
-        // int remaining = n, i = 0;
-        // while (remaining > 0) {
-        //     while (d[i] <= remaining) {
-        //         change[i]++;
-        //         remaining -= d[i];
-        //     } 
-        //     i++;
-            
-        // }
-        // return change;
-
         int[] change = new int[d.length];
         int remaining = n, i = 0;
-        int count;
         while (remaining > 0) {
-            count = (int) Math.floor(remaining/d[i]);
-            if (count > 0) {
-                change[i] = count;
-                remaining -= count * d[i];
-            } else {
-                i++;
-            }
+            while (d[i] <= remaining) {
+                change[i]++;
+                remaining -= d[i];
+            } 
+            i++;
+            
         }
         return change;
     }
@@ -137,7 +130,7 @@ public class ChangeMaker {
                 System.out.printf("%d*%dc ", results[i], d[i]);
         }
         System.out.print("\n");
-        System.out.println("Optimal coin count: " + results[n]);
+        System.out.println("Optimal coin count: " + get_coin_count(results));
     }
 
     private static int[] convertIntegers(ArrayList<Integer> integers) {
